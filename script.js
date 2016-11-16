@@ -9,6 +9,7 @@ $(document).ready(function() {
     while(actualColor == color) {
       color = colors[Math.floor(Math.random()*colors.length)];
     }
+    actualColor = color;
     $('h1').css('color', color);
     $('body').css('background-color', color);
     $('#quote-wrap').css('color', color);
@@ -21,7 +22,24 @@ $(document).ready(function() {
     $.getJSON("https://crossorigin.me/http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en", function(data){
       $('#quote').html("<i class='fa fa-quote-left'></i> "+ data.quoteText +" <i class='fa fa-quote-right'>");
       $('#quote-author').text(data.quoteAuthor);
+      $('#tweet-link').prop('href', 'http://twitter.com/share?text='+ data.quoteText.replace(' ', '%20')+'%20-%20'+ data.quoteAuthor.replace(' ', "%20") +'%20%23QuoteMachine%20https://amp0.github.io/fcc-quote-machine/index.html');
       changeColor();
     });
+  });
+
+  $('.popup').click(function (event) {
+    var width = 575,
+        height = 400,
+        left   = ($(window).width()  - width)  / 2,
+        top    = ($(window).height() - height) / 2,
+        url    = this.href,
+        opts   = 'status=1' +
+                 ',width='  + width  +
+                 ',height=' + height +
+                 ',top='    + top    +
+                 ',left='   + left;
+    window.open(url, 'twitter', opts);
+
+    return false;
   });
 });

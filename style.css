@@ -50,6 +50,11 @@ body {
   width: 64%;
   margin: 0 auto;
   color: white;
+    display:flex;
+}
+
+.btn-subwrap {
+  width: 50%;
 }
 
 button {
